@@ -1,8 +1,7 @@
 const fs = require('fs');
 
-const Haiku = () =>{
+const Haiku = (arr) =>{
 
-    const arr = fs.readFileSync("words.txt", "utf8").split("\n");
     const result = ["","",""];
     let copy = new Set();
 
@@ -26,7 +25,8 @@ const Haiku = () =>{
     return result;
 }
 
-console.log(Haiku())
+const arr = fs.readFileSync("words.txt", "utf8").split("\n");
+console.log(Haiku(arr))
 
 function syllablesCounter(word) {
 

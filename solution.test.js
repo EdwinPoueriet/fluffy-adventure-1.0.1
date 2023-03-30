@@ -15,3 +15,9 @@ describe('Syllables counter', ()=>{
         expect(syllablesCounter('cat')).toBe(1);
     });
 });
+
+describe('Haiku', () => {
+    test('', () => {
+
+    });
+});
