@@ -1,6 +1,7 @@
 const fs = require("fs");
 
 const Haiku = (arr) => {
+
   if (!isArrOfStrings(arr)) {
     return [];
   }
@@ -20,8 +21,8 @@ const Haiku = (arr) => {
         copy.add(currentWord);
         words.push(currentWord);
         amount = amount - currentWordSyllables;
-      }
-    }
+      };
+    };
 
     result[index] = words.join(" ");
   });
@@ -33,26 +34,28 @@ const file = fs.readFileSync("words.txt", "utf8").split("\n");
 console.log(Haiku(file));
 
 function syllablesCounter(word) {
+
   let Word = word;
 
-  if (Word.length == 0) {
+  if (typeof Word !== "string" || Word.length == 0) {
     return 0;
-  }
+  };
 
   if (Word.length <= 3) {
     return 1;
-  }
+  };
 
   Word = Word.replace(/(?:[^laeiouy]es|ed|[^laeiouy]e)$/, "");
   Word = Word.replace(/^y/, "");
 
   return Word.match(/[aeiouy]{1,2}/g).length;
-}
+};
 
 function isArrOfStrings(arr) {
+    
   if (!Array.isArray(arr)) {
     return false;
-  }
+  };
 
   return arr.every((word) => {
     return typeof word === "string";
@@ -60,7 +63,7 @@ function isArrOfStrings(arr) {
 }
 
 function removeNonLetterCharacters(word) {
-  return word.replace(/[^a-zA-Z ]/g, "");
+  return word.toLowerCase().replace(/[^a-zA-Z ]/g, "");
 }
 
 module.exports = { Haiku, syllablesCounter };
