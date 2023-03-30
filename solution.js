@@ -42,7 +42,9 @@ function syllablesCounter(word) {
 
     Word = Word.replace(/(?:[^laeiouy]es|ed|[^laeiouy]e)$/, '');
     Word = Word.replace(/^y/, '');
-    
+
     return Word.match(/[aeiouy]{1,2}/g).length;
 }
+
+module.exports = {Haiku, syllablesCounter}
 
