@@ -1,10 +1,11 @@
 const fs = require('fs');
 
 const Haiku = () =>{
-    const arr = fs.readFileSync("words.txt", "utf8").split("\n");
 
+    const arr = fs.readFileSync("words.txt", "utf8").split("\n");
     const result = ["","",""];
     let copy = new Set();
+
     result.forEach((_, index)=> {
         let amount = index === 1 ? 7 : 5;
         const words = [];
@@ -18,6 +19,7 @@ const Haiku = () =>{
                 amount = amount - currentWordSyllables;
             }
         }
+
         result[index] = words.join(" ");
     })
 
@@ -27,15 +29,20 @@ const Haiku = () =>{
 console.log(Haiku())
 
 function syllablesCounter(word) {
+
     let Word = word;
+
     if (Word.length == 0){
         return 0;
     }
+
     if (Word.length <= 3) {
         return 1
     }
+
     Word = Word.replace(/(?:[^laeiouy]es|ed|[^laeiouy]e)$/, '');
     Word = Word.replace(/^y/, '');
+    
     return Word.match(/[aeiouy]{1,2}/g).length;
 }
 
