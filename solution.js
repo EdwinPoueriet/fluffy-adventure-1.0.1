@@ -1,6 +1,10 @@
 const fs = require('fs');
 
 const Haiku = (arr) =>{
+    
+    if(!isArrOfStrings(arr)){
+        return [];
+    };
 
     const result = ["","",""];
     let copy = new Set();
@@ -10,8 +14,10 @@ const Haiku = (arr) =>{
         const words = [];
         while (amount > 0){
             
-            const currentWord = arr[Math.floor(Math.random() * arr.length)];
+            let currentWord = removeNonLetterCharacters(arr[Math.floor(Math.random() * arr.length)]);
+            
             const currentWordSyllables = syllablesCounter(currentWord);
+
             if(currentWordSyllables <= amount && !copy.has(currentWord)){
                 copy.add(currentWord);
                 words.push(currentWord);
@@ -25,8 +31,9 @@ const Haiku = (arr) =>{
     return result;
 }
 
-const arr = fs.readFileSync("words.txt", "utf8").split("\n");
-console.log(Haiku(arr))
+const file = fs.readFileSync("words.txt", "utf8").split("\n");
+console.log(Haiku(file))
+
 
 function syllablesCounter(word) {
 
@@ -45,6 +52,20 @@ function syllablesCounter(word) {
 
     return Word.match(/[aeiouy]{1,2}/g).length;
 }
+
+
+function isArrOfStrings(arr) {
+    if (!Array.isArray(arr)) {
+        return false;
+      }
+    
+    return arr.every((word) => {
+        return typeof word === 'string';
+    });
+}
+function removeNonLetterCharacters (word) {
+    return word.replace(/[^a-zA-Z ]/g, '');
+  }
 
 module.exports = {Haiku, syllablesCounter}
 
