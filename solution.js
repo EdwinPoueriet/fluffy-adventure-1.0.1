@@ -12,10 +12,8 @@ const Haiku = (arr) => {
     let amount = index === 1 ? 7 : 5;
     const words = [];
     while (amount > 0) {
-      let currentWord = removeNonLetterCharacters(
-        arr[Math.floor(Math.random() * arr.length)]
-      );
 
+      const currentWord = removeNonLetterCharacters(arr[Math.floor(Math.random() * arr.length)]);
       const currentWordSyllables = syllablesCounter(currentWord);
 
       if (currentWordSyllables <= amount && !copy.has(currentWord)) {
@@ -60,6 +58,7 @@ function isArrOfStrings(arr) {
     return typeof word === "string";
   });
 }
+
 function removeNonLetterCharacters(word) {
   return word.replace(/[^a-zA-Z ]/g, "");
 }
