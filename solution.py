@@ -1,0 +1,56 @@
+import random, re
+
+
+def haiku(word_list):
+    if not is_list_of_strings(word_list):
+        return []
+
+    result = ["", "", ""]
+    copy = set()
+
+    for index in range(len(result)):
+        amount = 7 if index == 1 else 5
+        words = []
+        while amount > 0:
+            current_word = remove_non_letter_characters(word_list[random.randint(0, len(word_list)-1)])
+            current_word_syllables = syllables_counter(current_word)
+
+            if current_word_syllables <= amount and current_word not in copy:
+                copy.add(current_word)
+                words.append(current_word)
+                amount -= current_word_syllables
+
+        result[index] = " ".join(words)
+
+    return result
+
+
+def syllables_counter(word):
+    Word = word.lower()
+    
+    if not isinstance(Word, str) or len(Word) == 0:
+        return 0
+
+    if len(Word) <= 3:
+        return 1
+
+    Word = re.sub(r"(?:[^laeiouy]es|ed|[^laeiouy]e)$", "", Word)
+    Word = re.sub(r"^y", "", Word)
+
+    return len(re.findall(r"[aeiouy]{1,2}", Word))
+
+def is_list_of_strings(word_list):
+    if not isinstance(word_list, list):
+        return False
+
+    return all(isinstance(word, str) for word in word_list)
+
+
+def remove_non_letter_characters(word):
+    return re.sub(r"[^a-zA-Z ]", "", word).lower()
+
+
+with open("words.txt", "r") as f:
+    file = f.read().splitlines()
+
+print(haiku(file))
