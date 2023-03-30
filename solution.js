@@ -4,7 +4,7 @@ const Haiku = () =>{
     const arr = fs.readFileSync("words.txt", "utf8").split("\n");
 
     const result = ["","",""];
-
+    let copy = new Set();
     result.forEach((_, index)=> {
         let amount = index === 1 ? 7 : 5;
         const words = [];
@@ -12,7 +12,8 @@ const Haiku = () =>{
             
             const currentWord = arr[Math.floor(Math.random() * arr.length)];
             const currentWordSyllables = syllablesCounter(currentWord);
-            if(currentWordSyllables <= amount){
+            if(currentWordSyllables <= amount && !copy.has(currentWord)){
+                copy.add(currentWord);
                 words.push(currentWord);
                 amount = amount - currentWordSyllables;
             }
@@ -20,10 +21,10 @@ const Haiku = () =>{
         result[index] = words.join(" ");
     })
 
-    console.log(result)
+    return result;
 }
 
-Haiku()
+console.log(Haiku())
 
 function syllablesCounter(word) {
     let Word = word;
@@ -38,8 +39,3 @@ function syllablesCounter(word) {
     return Word.match(/[aeiouy]{1,2}/g).length;
 }
 
-console.log(syllablesCounter("organized"))
-
-
-// create haiku  5 7 5 
-// avoid repeating words
