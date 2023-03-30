@@ -25,15 +25,16 @@ def haiku(word_list):
     return result
 
 
-def syllables_counter(word):
-    word.lower()
+def syllables_counter(word = None):
     
-    if not isinstance(word, str) or len(word) == 0:
+    
+    if not isinstance(word, str) or len(word) == 0 or word is None:
         return 0
 
     if len(word) <= 3:
         return 1
 
+    word.lower()
     syllables = pyphen.Pyphen(lang='en')
 
     return len(syllables.inserted(word).split("-"))
