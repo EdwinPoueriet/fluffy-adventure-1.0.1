@@ -33,9 +33,12 @@ describe("Haiku", () => {
         return acc + syllablesCounter(val);
       }, 0);
     };
-    expect(syllablesTotal(result[0])).toBe(5);
-    expect(syllablesTotal(result[1])).toBe(7);
-    expect(syllablesTotal(result[2])).toBe(5);
+    for(let i = 0; i < 500; i++) {
+        expect(syllablesTotal(result[0])).toBe(5);
+        expect(syllablesTotal(result[1])).toBe(7);
+        expect(syllablesTotal(result[2])).toBe(5);
+    }
+    
   });
 
   test("no word can be duplicated", () => {
