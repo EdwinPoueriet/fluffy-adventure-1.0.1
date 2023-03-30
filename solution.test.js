@@ -1,9 +1,8 @@
 const { describe } = require("node:test");
 const fs = require("fs");
+const { Haiku, syllablesCounter } = require("./solution");
 
 const file = fs.readFileSync("words.txt", "utf8").split("\n");
-
-const { Haiku, syllablesCounter } = require("./solution");
 
 describe("Syllables counter", () => {
   test("should correctly count syllables in a word", () => {
