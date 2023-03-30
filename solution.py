@@ -1,4 +1,4 @@
-import random, re
+import random, re, pyphen
 
 
 def haiku(word_list):
@@ -34,13 +34,13 @@ def syllables_counter(word):
     if len(Word) <= 3:
         return 1
 
-    Word = re.sub(r"(?:[^laeiouy]es|ed|[^laeiouy]e)$", "", Word)
-    Word = re.sub(r"^y", "", Word)
+    syllables = pyphen.Pyphen(lang='en')
 
-    return len(re.findall(r"[aeiouy]{1,2}", Word))
+    return len(syllables.inserted(Word).split("-"))
+
 
 def is_list_of_strings(word_list):
-    if not isinstance(word_list, list):
+    if not isinstance(word_list, list) or not word_list:
         return False
 
     return all(isinstance(word, str) for word in word_list)
